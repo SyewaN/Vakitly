@@ -1,2 +1,3 @@
 # Vakitly
-![Uploading resim.png…]()
+
+![Uploading Cami ve Ay Duruşu.png…]()
