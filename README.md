@@ -1,3 +1,3 @@
 # Vakitly
 
-![Uploading Cami ve Ay Duruşu.png…]()
+[Uploading Cami ve Ay Duruşu.png…]
