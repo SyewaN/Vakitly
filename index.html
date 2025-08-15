@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Namaz Vakitleri • Final</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* ===== Theme Vars ===== */
+    :root{
+      --bg-primary:#1e1e2e;--bg-secondary:#232336;--bg-tertiary:#2e2e45;
+      --text-primary:#e7e8ee;--text-secondary:#c9cad7;--text-muted:#9aa0ad;
+      --accent:#a6e3a1;--accent-2:#94e2d5;--accent-dim:rgba(166,227,161,.14);
+      --border:#42455a;--border-light:#585c72;
+      --ok:#22c55e;--warn:#f59e0b;--danger:#ef4444;
+      --shadow:0 8px 24px rgba(0,0,0,.28);
+    }
+    body.light{
+      --bg-primary:#f6f8fb;--bg-secondary:#ffffff;--bg-tertiary:#eef2f7;
+      --text-primary:#0f172a;--text-secondary:#334155;--text-muted:#64748b;
+      --accent:#10b981;--accent-2:#34d399;--accent-dim:rgba(16,185,129,.12);
+      --border:#e5e7eb;--border-light:#d1d5db;--shadow:0 8px 24px rgba(0,0,0,.08);
+    }
+    body.gruvbox{
+      --bg-primary:#282828;--bg-secondary:#3c3836;--bg-tertiary:#504945;
+      --text-primary:#ebdbb2;--text-secondary:#d5c4a1;--text-muted:#bdae93;
+      --accent:#a9b665;--accent-2:#b8bb26;--accent-dim:rgba(169,182,101,.14);
+      --border:#665c54;--border-light:#7c6f64;--shadow:0 8px 24px rgba(0,0,0,.32);
+    }
+    body.vampire{
+      --bg-primary:#0e0e14;--bg-secondary:#15151e;--bg-tertiary:#1d1d29;
+      --text-primary:#e5e7eb;--text-secondary:#cbd5e1;--text-muted:#98a2b3;
+      --accent:#e879f9;--accent-2:#c084fc;--accent-dim:rgba(232,121,249,.12);
+      --border:#2a2a36;--border-light:#3a3a46;--shadow:0 8px 24px rgba(0,0,0,.42);
+    }
+
+    /* ===== Reset / Layout ===== */
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{margin:0;background:var(--bg-primary);color:var(--text-primary);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+    .wrap{min-height:100%;display:flex;align-items:center;justify-content:center;padding:20px}
+    .panel{width:100%;max-width:380px;background:var(--bg-secondary);border:1px solid var(--border);border-radius:16px;padding:14px;box-shadow:var(--shadow);position:relative}
+
+    /* ===== Header ===== */
+    .header{text-align:center;margin-bottom:10px}
+    /* eski görünümlü cami ikonu: accent arkaplan + 🕌 emoji */
+    .mosque-icon{
+      width:40px;height:40px;margin:0 auto .6rem;background:var(--accent);
+      border-radius:10px;display:flex;align-items:center;justify-content:center;
+      font-size:20px;color:#fff;user-select:none
+    }
+    .mosque-icon::after{content:"🕌"}
+    .city{display:flex;align-items:center;justify-content:center;gap:.4rem;font-weight:700;font-size:1.15rem;margin-top:.2rem}
+    .subtitle{font-size:.9rem;color:var(--text-secondary)}
+
+    /* ===== Times ===== */
+    .times{margin:.9rem 0}
+    .time-item{display:flex;align-items:center;justify-content:space-between;background:var(--bg-tertiary);border-radius:12px;padding:.72rem .9rem;margin:.48rem 0;transition:.18s}
+    .time-item:hover{background:var(--accent-dim);transform:translateY(-1px)}
+    .tname{font-weight:600}
+    .tval{font-variant-numeric:tabular-nums;font-weight:700;color:var(--accent)}
+
+    .count{background:var(--bg-tertiary);border-radius:12px;padding:.9rem;text-align:center;margin:.9rem 0}
+    .count .tt{color:var(--text-secondary);font-size:.86rem;letter-spacing:.06em;text-transform:uppercase}
+    .count .val{font-weight:800;font-size:1.1rem;color:var(--accent);margin-top:.45rem;font-variant-numeric:tabular-nums}
+
+    .verse{background:var(--bg-tertiary);border-radius:12px;padding:.9rem;text-align:center;margin:.9rem 0}
+    .verse .v{font-size:.86rem;color:var(--text-secondary);font-style:italic}
+    .verse .r{margin-top:.45rem;font-size:.78rem;color:var(--accent);font-weight:700;letter-spacing:.04em}
+
+    .row{display:flex;gap:.7rem}
+    select.city{flex:1;padding:.7rem 1rem;background:var(--bg-tertiary);border:1px solid var(--border);border-radius:12px;color:var(--text-primary);font-weight:400}
+    select.city:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-dim)}
+    .btn{min-width:56px;padding:.7rem;border-radius:12px;border:1px solid var(--border);background:transparent;color:var(--text-secondary);font-weight:700;cursor:pointer}
+    .btn:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-dim)}
+
+    /* ===== Settings FAB (transparent) ===== */
+    .settings-fab{
+      position:fixed;left:1rem;bottom:1rem;width:46px;height:46px;display:flex;align-items:center;justify-content:center;
+      background:transparent;border:none;cursor:pointer;opacity:.72;z-index:120;transition:transform .28s ease,opacity .28s ease
+    }
+    .settings-fab:hover{transform:rotate(20deg);opacity:1}
+    .settings-fab svg{width:28px;height:28px;stroke:var(--text-secondary);fill:none;stroke-width:2}
+
+    /* ===== Settings Panel ===== */
+    .settings{position:fixed;top:0;right:-360px;width:340px;height:100vh;background:var(--bg-secondary);border-left:1px solid var(--border);box-shadow:-8px 0 24px rgba(0,0,0,.25);transition:right .3s ease;z-index:119;overflow-y:auto;padding:1.1rem 1.1rem 1.6rem}
+    .settings.active{right:0}
+    .x{position:absolute;top:.5rem;right:.6rem;border:none;background:transparent;font-size:1.6rem;color:var(--text-muted);cursor:pointer}
+    .sg{margin:1rem 0}.sg h4{margin-bottom:.6rem}
+    .input,.select{width:100%;padding:.62rem .7rem;border:1px solid var(--border);border-radius:8px;background:var(--bg-tertiary);color:var(--text-primary)}
+    .sbtn{width:100%;padding:.7rem;border-radius:8px;border:1px solid var(--accent);background:var(--accent-dim);color:var(--accent);font-weight:800;cursor:pointer;text-align:center;margin:.4rem 0}
+    .sbtn:hover{background:var(--accent);color:#fff}
+    .rg{display:flex;flex-wrap:wrap;gap:.6rem}.rg label{display:flex;align-items:center;gap:.4rem}
+    .mini{font-size:.78rem;color:var(--text-secondary)}
+    .notice{border:1px dashed var(--border);border-radius:8px;padding:.7rem;display:flex;gap:.6rem;align-items:flex-start}
+    .dot{width:10px;height:10px;border-radius:50%;margin-top:.2rem}.ok{background:var(--ok)}.warn{background:var(--warn)}.danger{background:var(--danger)}
+    .links a{display:block;text-decoration:none}
+
+    /* ===== Qibla Compass ===== */
+    .qwrap{display:flex;gap:.7rem;align-items:center}
+    .rose{position:relative;width:80px;height:80px;border:2px solid var(--border);border-radius:50%}
+    .needle{position:absolute;left:50%;top:50%;width:2px;height:30px;background:var(--accent);transform-origin:bottom center;transform:translate(-50%,-100%) rotate(0deg);border-radius:2px}
+    .cmark{position:absolute;font-size:.7rem;color:var(--text-muted);user-select:none}
+    .cN{top:-10px;left:50%;transform:translateX(-50%)} .cS{bottom:-10px;left:50%;transform:translateX(-50%)}
+    .cE{right:-10px;top:50%;transform:translateY(-50%)} .cW{left:-10px;top:50%;transform:translateY(-50%)}
+
+    @media (max-width:420px){
+      .panel{max-width:100%;border-radius:0;padding:1rem;border-left:none;border-right:none}
+      .settings{width:100%;right:-100%}
+      .settings.active{right:0}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <main class="panel" role="main" aria-live="polite">
+      <header class="header">
+        <!-- eski tip cami ikonu -->
+        <div class="mosque-icon" aria-hidden="true"></div>
+        <div class="city"><span id="cityName">—</span></div>
+        <div class="subtitle" id="todayStr">—</div>
+      </header>
+
+      <section id="times" class="times"></section>
+
+      <section class="count">
+        <div class="tt" id="nextTitle" data-i18n="next">Sonraki Vakit</div>
+        <div class="val" id="countdown">--:--:--</div>
+      </section>
+
+      <section class="verse">
+        <div class="v" id="vText">“—”</div>
+        <div class="r" id="vRef">—</div>
+      </section>
+
+      <div class="row">
+        <select id="citySelect" class="city" aria-label="Şehir"></select>
+        <button id="themeToggle" class="btn" aria-label="Tema">🌙</button>
+      </div>
+    </main>
+  </div>
+
+  <!-- Transparent Settings FAB -->
+  <button id="openSettings" class="settings-fab" aria-label="Ayarlar" title="Ayarlar">
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M12 8.5a3.5 3.5 0 1 1 0 7 3.5 3.5 0 0 1 0-7Zm8.94 2.95-.82-.47c.05-.32.08-.64.08-.98s-.03-.66-.08-.98l.82-.47a1 1 0 0 0 .37-1.36l-.95-1.65a1 1 0 0 0-1.27-.43l-.82.47a7.95 7.95 0 0 0-1.69-.98l-.12-.94A1 1 0 0 0 14.5 2h-1.9a1 1 0 0 0-.99.86l-.12.94c-.6.23-1.17.54-1.69.9l-.83-.48a1 1 0 0 0-1.36.37L5.26 5.14a1 1 0 0 0 .43 1.36l.83.48c-.05.32-.08.65-.08.98s.03.66.08.98l-.83.48a1 1 0 0 0-.43 1.36l.95 1.65a1 1 0 0 0 1.27.43l.83-.48c.52.36 1.09.67 1.69.9l.12.94c.07.5.49.86.99.86h1.9c.5 0 .92-.36.99-.86l.12-.94c.6-.23 1.17-.54 1.69-.9l.82.48a1 1 0 0 0 1.36-.37l.95-1.65a1 1 0 0 0-.37-1.36Z"/>
+    </svg>
+  </button>
+
+  <!-- Settings Panel -->
+  <aside id="settings" class="settings" aria-hidden="true">
+    <button id="closeSettings" class="x" aria-label="Kapat">✕</button>
+
+    <!-- Theme -->
+    <div class="sg">
+      <h4 data-i18n="theme">Tema</h4>
+      <div id="themeRadios" class="rg" role="radiogroup" aria-label="Tema">
+        <label><input type="radio" name="theme" value="dark"> <span data-i18n="theme_dark">Koyu</span></label>
+        <label><input type="radio" name="theme" value="light"> <span data-i18n="theme_light">Açık</span></label>
+        <label><input type="radio" name="theme" value="gruvbox"> <span data-i18n="theme_gruv">Gruvbox</span></label>
+        <label><input type="radio" name="theme" value="vampire"> <span data-i18n="theme_vamp">Vampire</span></label>
+        <label id="customThemeRadioWrap" style="display:none"><input type="radio" name="theme" value="custom"> <span data-i18n="theme_custom">Özel</span></label>
+      </div>
+      <label class="mini" style="display:flex;gap:.4rem;align-items:center;margin-top:.4rem">
+        <input type="checkbox" id="emojiFollowTheme"> <span data-i18n="emoji_follow">Tema emojilerini kullan</span>
+      </label>
+    </div>
+
+    <!-- Time format -->
+    <div class="sg">
+      <h4 data-i18n="time_format">Saat Formatı</h4>
+      <div class="rg" role="radiogroup">
+        <label><input type="radio" name="tf" value="24"> <span>24</span></label>
+        <label><input type="radio" name="tf" value="12"> <span>12</span></label>
+      </div>
+    </div>
+
+    <!-- Language -->
+    <div class="sg">
+      <h4 data-i18n="language">Dil</h4>
+      <select id="langSelect" class="select" aria-label="Dil">
+        <option value="tr">Türkçe</option>
+        <option value="ar">العربية</option>
+        <option value="en">English</option>
+        <option value="de">Deutsch</option>
+        <option value="fr">Français</option>
+      </select>
+    </div>
+
+    <!-- Theme builder -->
+    <div class="sg">
+      <h4 data-i18n="build_theme">Tema Oluştur</h4>
+      <div class="mini" data-i18n="build_theme_desc" style="margin-bottom:.4rem">Renkleri seçin ve kaydedin (sadece bu cihaz için).</div>
+      <label class="mini" data-i18n="bg">Arka Plan</label>
+      <input type="color" id="ct-bg" class="input" value="#121218">
+      <label class="mini" data-i18n="card_bg">Kart Arka Plan</label>
+      <input type="color" id="ct-sec" class="input" value="#191a24">
+      <label class="mini" data-i18n="text">Metin</label>
+      <input type="color" id="ct-text" class="input" value="#e6e6ef">
+      <label class="mini" data-i18n="accent">Vurgu</label>
+      <input type="color" id="ct-accent" class="input" value="#10b981">
+      <button id="saveCustomTheme" class="sbtn" data-i18n="save_theme">Özel Temayı Kaydet</button>
+    </div>
+
+    <!-- Custom City -->
+    <div class="sg">
+      <h4 data-i18n="custom_city">Özel Şehir</h4>
+      <input id="cc-name" class="input" placeholder="İl/İlçe adı">
+      <div style="display:flex;gap:.5rem">
+        <input id="cc-lat" class="input" placeholder="Lat">
+        <input id="cc-lon" class="input" placeholder="Lon">
+      </div>
+      <button id="saveCity" class="sbtn" data-i18n="save">Kaydet</button>
+    </div>
+
+    <!-- Qibla -->
+    <div class="sg">
+      <h4 data-i18n="qibla">Kıble Yönü</h4>
+      <div class="mini" style="margin-bottom:.4rem" data-i18n="qibla_desc">Seçili şehre göre kıble açısı:</div>
+      <div class="qwrap">
+        <div class="rose">
+          <div class="needle" id="qNeedle"></div>
+          <div class="cmark cN">N</div>
+          <div class="cmark cS">S</div>
+          <div class="cmark cE">E</div>
+          <div class="cmark cW">W</div>
+        </div>
+        <div>
+          <div id="qResult">—°</div>
+          <button id="calcQ" class="sbtn" style="margin-top:.5rem" data-i18n="calc_q">Kıbleyi Hesapla</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Secondary Source Status -->
+    <div class="sg" id="crossGroup">
+      <h4 data-i18n="secondary_status">İkincil Kaynak Durumu</h4>
+      <div class="notice" id="crossBox" style="display:none">
+        <div class="dot" id="crossDot"></div>
+        <div style="flex:1">
+          <div id="crossText" class="mini">—</div>
+          <div style="display:flex;gap:.5rem;margin-top:.5rem">
+            <button id="crossRetry" class="sbtn" style="flex:1" data-i18n="retry">Yeniden Kontrol</button>
+            <button id="crossHide" class="sbtn" style="flex:1;border-color:var(--border);background:transparent;color:var(--text-secondary)" data-i18n="hide_warn">Uyarıyı Gizle</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- City search / Find me -->
+    <div class="sg">
+      <h4 data-i18n="city_search_title">Şehir Ara / Seç</h4>
+      <div style="display:flex;gap:.5rem;margin-bottom:.6rem">
+        <input id="citySearch" class="input" placeholder="Ankara…">
+        <button id="findMe" class="sbtn" data-i18n="find_me">Konumdan Bul</button>
+      </div>
+      <div class="mini" style="margin-bottom:.3rem" data-i18n="city_search_note">Ana ekrandaki açılır listeden de seçebilirsiniz.</div>
+    </div>
+
+    <!-- Sources (bottom) -->
+    <div class="sg">
+      <h4 data-i18n="sources">Kaynaklar</h4>
+      <div class="links">
+        <a class="sbtn" href="https://aladhan.com/prayer-times-api" target="_blank" rel="noopener">Aladhan (Primary)</a>
+        <a class="sbtn" href="https://islamicapi.com" target="_blank" rel="noopener">IslamicAPI</a>
+        <a class="sbtn" href="https://api.pray.zone" target="_blank" rel="noopener">Pray.Zone</a>
+        <a class="sbtn" href="https://namazvakitleri.diyanet.gov.tr" target="_blank" rel="noopener">Diyanet</a>
+        <a class="sbtn" href="https://nominatim.openstreetmap.org" target="_blank" rel="noopener">OpenStreetMap Nominatim</a>
+      </div>
+    </div>
+  </aside>
+
+  <script>
+    /* ========= State ========= */
+    const el=(i)=>document.getElementById(i);
+    const timesDiv = el('times'), cityName = el('cityName'), todayStr = el('todayStr');
+    const nextTitle = el('nextTitle'), countdown = el('countdown');
+    const themeToggle = el('themeToggle'), settings = el('settings');
+    const openSettings = el('openSettings'), closeSettings = el('closeSettings');
+    const qNeedle = el('qNeedle'), qResult = el('qResult');
+
+    const crossBox=el('crossBox'), crossText=el('crossText'), crossDot=el('crossDot');
+    const crossRetry=el('crossRetry'), crossHide=el('crossHide');
+
+    const citySelect = el('citySelect');
+    const langSelect = el('langSelect');
+
+    let countdownTimer=null;
+    const CACHE_TTL_MS = 3600_000;
+
+    const cities = {
+      "sinop-gerze": { name:"Sinop - Gerze", lat:41.7936, lon:35.1911, diyanet:"https://namazvakitleri.diyanet.gov.tr/tr-TR/ilce/9271/gerze" },
+      "ankara": { name:"Ankara", lat:39.9208, lon:32.8541, diyanet:"https://namazvakitleri.diyanet.gov.tr/tr-TR/ankara-icin-namaz-vakti" },
+      "istanbul": { name:"İstanbul", lat:41.0082, lon:28.9784, diyanet:"https://namazvakitleri.diyanet.gov.tr/tr-TR/istanbul-icin-namaz-vakti" },
+      "izmir": { name:"İzmir", lat:38.4192, lon:27.1287, diyanet:"https://namazvakitleri.diyanet.gov.tr/tr-TR/izmir-icin-namaz-vakti" },
+      "bursa": { name:"Bursa", lat:40.1885, lon:29.0610, diyanet:"https://namazvakitleri.diyanet.gov.tr/tr-TR/bursa-icin-namaz-vakti" },
+      "antalya": { name:"Antalya", lat:36.8841, lon:30.7056, diyanet:"https://namazvakitleri.diyanet.gov.tr/tr-TR/antalya-icin-namaz-vakti" },
+      "konya": { name:"Konya", lat:37.8746, lon:32.4932, diyanet:"https://namazvakitleri.diyanet.gov.tr/tr-TR/konya-icin-namaz-vakti" },
+      "adana": { name:"Adana", lat:37.0000, lon:35.3213, diyanet:"https://namazvakitleri.diyanet.gov.tr/tr-TR/adana-icin-namaz-vakti" },
+      "berlin": { name:"Berlin", lat:52.5200, lon:13.4050, diyanet:"" },
+      "paris": { name:"Paris", lat:48.8566, lon:2.3522, diyanet:"" }
+    };
+    let customCities = JSON.parse(localStorage.getItem('customCities')||'{}');
+
+    /* ========= i18n ========= */
+    const i18n = {
+      tr:{ next:"Sonraki Vakit",
+        names:["İmsak","Güneş","Öğle","İkindi","Akşam","Yatsı"], arrived:"vakti geldi!",
+        ui:{
+          theme:"Tema", theme_dark:"Koyu", theme_light:"Açık", theme_gruv:"Gruvbox", theme_vamp:"Vampire", theme_custom:"Özel",
+          emoji_follow:"Tema emojilerini kullan", time_format:"Saat Formatı", language:"Dil",
+          build_theme:"Tema Oluştur", build_theme_desc:"Renkleri seçin ve kaydedin (sadece bu cihaz için).",
+          bg:"Arka Plan", card_bg:"Kart Arka Plan", text:"Metin", accent:"Vurgu", save_theme:"Özel Temayı Kaydet",
+          custom_city:"Özel Şehir", save:"Kaydet",
+          qibla:"Kıble Yönü", qibla_desc:"Seçili şehre göre kıble açısı:", calc_q:"Kıbleyi Hesapla",
+          secondary_status:"İkincil Kaynak Durumu", retry:"Yeniden Kontrol", hide_warn:"Uyarıyı Gizle",
+          city_search_title:"Şehir Ara / Seç", find_me:"Konumdan Bul", city_search_note:"Ana ekrandaki açılır listeden de seçebilirsiniz.",
+          sources:"Kaynaklar"
+        },
+        cross:{ok:"Doğrulandı",warn:"Fark var",fail:"İkinci kaynak yok"}
+      },
+      ar:{ next:"الصلاة القادمة",
+        names:["الفجر","الشروق","الظهر","العصر","المغرب","العشاء"], arrived:"حان الوقت!",
+        ui:{
+          theme:"السمة", theme_dark:"داكن", theme_light:"فاتح", theme_gruv:"غروفبوكس", theme_vamp:"فامباير", theme_custom:"مخصص",
+          emoji_follow:"استخدم رموز السمة", time_format:"تنسيق الوقت", language:"اللغة",
+          build_theme:"إنشاء سمة", build_theme_desc:"اختر الألوان واحفظها (لهذا الجهاز فقط).",
+          bg:"الخلفية", card_bg:"خلفية البطاقة", text:"النص", accent:"اللون المميز", save_theme:"احفظ السمة المخصصة",
+          custom_city:"مدينة مخصصة", save:"حفظ",
+          qibla:"اتجاه القبلة", qibla_desc:"زاوية القبلة حسب المدينة:", calc_q:"احسب القبلة",
+          secondary_status:"حالة المصدر الثانوي", retry:"إعادة التحقق", hide_warn:"إخفاء التنبيه",
+          city_search_title:"ابحث/اختر مدينة", find_me:"اعثر على موقعي", city_search_note:"يمكنك أيضًا الاختيار من القائمة في الشاشة الرئيسية.",
+          sources:"المصادر"
+        },
+        cross:{ok:"تم التحقق",warn:"اختلاف",fail:"لا يوجد مصدر ثانوي"}
+      },
+      en:{ next:"Next Prayer",
+        names:["Fajr","Sunrise","Dhuhr","Asr","Maghrib","Isha"], arrived:"time has come!",
+        ui:{
+          theme:"Theme", theme_dark:"Dark", theme_light:"Light", theme_gruv:"Gruvbox", theme_vamp:"Vampire", theme_custom:"Custom",
+          emoji_follow:"Use theme emojis", time_format:"Time Format", language:"Language",
+          build_theme:"Build Theme", build_theme_desc:"Pick colors and save (this device only).",
+          bg:"Background", card_bg:"Card Background", text:"Text", accent:"Accent", save_theme:"Save Custom Theme",
+          custom_city:"Custom City", save:"Save",
+          qibla:"Qibla Direction", qibla_desc:"Qibla angle for the selected city:", calc_q:"Calculate Qibla",
+          secondary_status:"Secondary Source Status", retry:"Re-check", hide_warn:"Hide Warning",
+          city_search_title:"Search / Choose City", find_me:"Find Me", city_search_note:"You can also choose from the dropdown on the main screen.",
+          sources:"Sources"
+        },
+        cross:{ok:"Verified",warn:"Mismatch",fail:"No secondary source"}
+      },
+      de:{ next:"Nächste Zeit",
+        names:["Imsak","Sonnenaufgang","Mittag","Nachmittag","Abend","Nacht"], arrived:"ist eingetroffen!",
+        ui:{
+          theme:"Thema", theme_dark:"Dunkel", theme_light:"Hell", theme_gruv:"Gruvbox", theme_vamp:"Vampir", theme_custom:"Benutzerdefiniert",
+          emoji_follow:"Thema-Emojis verwenden", time_format:"Zeitformat", language:"Sprache",
+          build_theme:"Thema Erstellen", build_theme_desc:"Farben wählen und speichern (nur dieses Gerät).",
+          bg:"Hintergrund", card_bg:"Kartenhintergrund", text:"Text", accent:"Akzent", save_theme:"Benutzerdef. Thema Speichern",
+          custom_city:"Benutzerdef. Stadt", save:"Speichern",
+          qibla:"Qibla-Richtung", qibla_desc:"Qibla-Winkel für die ausgewählte Stadt:", calc_q:"Qibla Berechnen",
+          secondary_status:"Status Zweitquelle", retry:"Erneut prüfen", hide_warn:"Hinweis ausblenden",
+          city_search_title:"Stadt suchen / wählen", find_me:"Finde mich", city_search_note:"Sie können auch die Dropdown-Liste auf dem Hauptbildschirm verwenden.",
+          sources:"Quellen"
+        },
+        cross:{ok:"Verifiziert",warn:"Abweichung",fail:"Keine Zweitquelle"}
+      },
+      fr:{ next:"Prochaine Prière",
+        names:["Imsak","Lever","Dhuhr","Asr","Maghreb","Icha"], arrived:"est arrivé !",
+        ui:{
+          theme:"Thème", theme_dark:"Sombre", theme_light:"Clair", theme_gruv:"Gruvbox", theme_vamp:"Vampire", theme_custom:"Personnalisé",
+          emoji_follow:"Utiliser les emojis du thème", time_format:"Format de l'heure", language:"Langue",
+          build_theme:"Créer un Thème", build_theme_desc:"Choisissez les couleurs et enregistrez (seulement cet appareil).",
+          bg:"Arrière-plan", card_bg:"Fond de carte", text:"Texte", accent:"Accent", save_theme:"Enregistrer le Thème Perso",
+          custom_city:"Ville Personnalisée", save:"Enregistrer",
+          qibla:"Direction de la Qibla", qibla_desc:"Angle de la qibla pour la ville choisie :", calc_q:"Calculer la Qibla",
+          secondary_status:"État de la Source Secondaire", retry:"Revérifier", hide_warn:"Masquer l’avertissement",
+          city_search_title:"Rechercher / Choisir une Ville", find_me:"Me Localiser", city_search_note:"Vous pouvez aussi choisir depuis la liste déroulante de l'écran principal.",
+          sources:"Sources"
+        },
+        cross:{ok:"Vérifié",warn:"Écart",fail:"Pas de 2ᵉ source"}
+      }
+    };
+
+    const themeEmojis = {
+      default:{İmsak:'🌙',Güneş:'🌅',Öğle:'☀️',İkindi:'🌇',Akşam:'🌆',Yatsı:'🌃'},
+      light:{İmsak:'🌄',Güneş:'🌞',Öğle:'🕛',İkindi:'🌤️',Akşam:'🌇',Yatsı:'🌙'},
+      vampire:{İmsak:'🦇',Güneş:'💫',Öğle:'🔮',İkindi:'🌘',Akşam:'🧛',Yatsı:'🌑'},
+      gruvbox:{İmsak:'🌿',Güneş:'🌾',Öğle:'☀️',İkindi:'🍂',Akşam:'🌆',Yatsı:'🌌'}
+    };
+
+    /* ========= Prefs ========= */
+    function prefTheme(){
+      try{ return window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark'; }
+      catch{ return 'dark'; }
+    }
+    let selectedCity = localStorage.getItem('selectedCity') || 'sinop-gerze';
+    let timeFormat = localStorage.getItem('timeFormat') || '24';
+    let lang = localStorage.getItem('lang') || 'tr';
+    let theme = localStorage.getItem('theme') || prefTheme();
+    let emojiFollowTheme = JSON.parse(localStorage.getItem('emojiFollowTheme') || 'false');
+    let todays = {};
+    let lastCross = {status:'none', diff:[], ts:0};
+    let crossHidden = JSON.parse(localStorage.getItem('crossHidden')||'false');
+
+    /* ========= Helpers ========= */
+    function elAll(sel){ return [...document.querySelectorAll(sel)]; }
+    const pad=(n)=>String(n).padStart(2,'0');
+    const toMins=(s)=>{const [h,m]=s.split(':').map(Number);return h*60+m;};
+    function fmt12(s){ let [h,m]=s.split(':').map(Number); const p=h>=12?'PM':'AM'; h=h%12||12; return `${h}:${pad(m)} ${p}`; }
+    const show=(s)=> timeFormat==='12' ? fmt12(s) : s;
+    function normalize(obj){ const out={}; for(const [k,v] of Object.entries(obj)){ const m=String(v).match(/(\d{1,2}):(\d{2})/); out[k]=m?`${pad(+m[1])}:${m[2]}`:String(v);} return out; }
+    function diffKeys(a,b){ const keys=["İmsak","Güneş","Öğle","İkindi","Akşam","Yatsı"]; const diff=[]; for(const k of keys){ if(!a[k]||!b[k]){diff.push(k);continue} if(Math.abs(toMins(a[k])-toMins(b[k]))>1) diff.push(k); } return diff; }
+    function withTimeout(p,ms){ let id; const t=new Promise((_,rej)=>id=setTimeout(()=>rej(new Error('timeout')),ms)); return Promise.race([p,t]).finally(()=>clearTimeout(id)); }
+
+    /* ========= UI Render ========= */
+    function renderDate(){
+      const d=new Date();
+      const months={ tr:["Ocak","Şubat","Mart","Nisan","Mayıs","Haziran","Temmuz","Ağustos","Eylül","Ekim","Kasım","Aralık"],
+        en:["January","February","March","April","May","June","July","August","September","October","November","December"],
+        ar:["يناير","فبراير","مارس","أبريل","مايو","يونيو","يوليو","أغسطس","سبتمبر","أكتوبر","نوفمبر","ديسمبر"],
+        de:["Januar","Februar","März","April","Mai","Juni","Juli","August","September","Oktober","November","Dezember"],
+        fr:["Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Août","Septembre","Octobre","Novembre","Décembre"] };
+      todayStr.textContent = `${d.getDate()} ${months[lang][d.getMonth()]} ${d.getFullYear()}`;
+    }
+    function renderTimes(){
+      const labels = i18n[lang].names;
+      const order = ["İmsak","Güneş","Öğle","İkindi","Akşam","Yatsı"];
+      const emojis = emojiFollowTheme ? (themeEmojis[theme]||themeEmojis.default) : themeEmojis.default;
+
+      timesDiv.innerHTML='';
+      order.forEach((k,i)=>{
+        const val = todays[k]||'--:--';
+        const item = document.createElement('div');
+        item.className='time-item';
+        item.innerHTML = `<div class="tname">${(emojis[k]||'🕐')} ${labels[i]}</div><div class="tval">${val}</div>`;
+        timesDiv.appendChild(item);
+      });
+    }
+
+    function to24(s){
+      if(!s) return "00:00";
+      if(!/AM|PM/i.test(s)) return s;
+      const [time,ampm]=s.split(' '); let [h,m]=time.split(':').map(Number);
+      if(/PM/i.test(ampm)&&h!==12) h+=12; if(/AM/i.test(ampm)&&h===12) h=0; return `${pad(h)}:${pad(m)}`;
+    }
+
+    function runCountdown(target, name){
+      const arrived = i18n[lang].arrived;
+      function tick(){
+        const now=new Date(); const diff=target-now;
+        if(diff<=0){ clearInterval(countdownTimer); countdown.textContent = name+' '+arrived; fetchAll(selectedCity,true); return; }
+        const h=Math.floor(diff/3600000), m=Math.floor((diff%3600000)/60000), s=Math.floor((diff%60000)/1000);
+        countdown.textContent = `${pad(h)}:${pad(m)}:${pad(s)}`;
+      }
+      tick(); if(countdownTimer) clearInterval(countdownTimer); countdownTimer=setInterval(tick,1000);
+    }
+
+    function nextCountdown(){
+      if(countdownTimer){ clearInterval(countdownTimer); countdownTimer=null; }
+      const now=new Date(); const base = now.toISOString().split('T')[0];
+      const order=["İmsak","Güneş","Öğle","İkindi","Akşam","Yatsı"];
+      for(const k of order){
+        if(!todays[k]) continue;
+        const dt = new Date(`${base}T${to24(todays[k])}:00`);
+        if(dt>now){ runCountdown(dt,k); return; }
+      }
+      // tomorrow imsak
+      const tmr=new Date(now); tmr.setDate(tmr.getDate()+1);
+      const base2 = tmr.toISOString().split('T')[0];
+      const dt = new Date(`${base2}T${to24(todays["İmsak"])}:00`);
+      runCountdown(dt,"İmsak");
+    }
+
+    function verse(){
+      const arr=[
+        {s:"Bakara",a:3,m:"Onlar gayba iman ederler, namazı dosdoğru kılarlar ve kendilerine verdiğimiz rızıktan infak ederler."},
+        {s:"Bakara",a:43,m:"Namazı dosdoğru kılın, zekâtı verin ve rükû edenlerle beraber rükû edin."},
+        {s:"Bakara",a:45,m:"Sabır ve namazla yardım dileyin."},
+        {s:"Bakara",a:110,m:"Namazı dosdoğru kılın ve zekâtı verin. Yaptığınız her hayrı Allah katında bulursunuz."},
+        {s:"Bakara",a:238,m:"Namazlara ve orta namaza devam edin; Allah’a gönülden boyun eğin."},
+        {s:"Nisa",a:103,m:"Şüphesiz namaz, müminlere vakitleri belirlenmiş bir farz olarak yazılmıştır."},
+        {s:"İbrahim",a:40,m:"Rabbim! Beni ve soyumdan gelecekleri namazı devamlı kılanlardan eyle!"},
+        {s:"Mü’minun",a:2,m:"Onlar ki namazlarında huşu içindedirler."},
+        {s:"Meryem",a:59,m:"Onlardan sonra namazı zayi eden bir nesil geldi."},
+        {s:"Hac",a:41,m:"Onlar; namazı kılar, zekâtı verir…"},
+        {s:"Ankebut",a:45,m:"Namaz, hayasızlıktan ve kötülükten alıkoyar."}
+      ];
+      const v=arr[Math.floor(Math.random()*arr.length)];
+      el('vText').textContent = `“${v.m}”`;
+      el('vRef').textContent = `${v.s} ${v.a}. Ayet`;
+    }
+
+    function kible(lat,lon){
+      const KaLat=21.4225, KaLon=39.8262;
+      const dLon=(KaLon-lon)*Math.PI/180, lat1=lat*Math.PI/180, lat2=KaLat*Math.PI/180;
+      const y=Math.sin(dLon)*Math.cos(lat2);
+      const x=Math.cos(lat1)*Math.sin(lat2)-Math.sin(lat1)*Math.cos(lat2)*Math.cos(dLon);
+      let b=Math.atan2(y,x)*180/Math.PI; b=(b+360)%360; return b;
+    }
+    function qiblaShow(){
+      const id=citySelect.value; const c=cities[id]||customCities[id]; if(!c) return;
+      const a=Math.round(kible(c.lat,c.lon)); qResult.textContent=`${a}°`; qNeedle.style.transform=`translate(-50%,-100%) rotate(${a}deg)`;
+    }
+
+    /* ========= Cache ========= */
+    const cacheKey=(id)=>`cache:${id}:${new Date().toISOString().slice(0,10)}`;
+    function saveCache(id,data){ localStorage.setItem(cacheKey(id), JSON.stringify({ts:Date.now(),data})); }
+    function readCache(id){
+      const raw=localStorage.getItem(cacheKey(id)); if(!raw) return null;
+      try{ const o=JSON.parse(raw); if(Date.now()-o.ts>CACHE_TTL_MS) return null; return o.data; }catch{return null}
+    }
+
+    /* ========= APIs ========= */
+    async function apiAladhan(lat,lon){
+      const r=await fetch(`https://api.aladhan.com/v1/timings?latitude=${lat}&longitude=${lon}&method=13`);
+      const j=await r.json(); const t=j.data.timings;
+      return normalize({İmsak:t.Imsak,Güneş:t.Sunrise,Öğle:t.Dhuhr,İkindi:t.Asr,Akşam:t.Maghrib,Yatsı:t.Isha});
+    }
+    async function apiPrayZone(lat,lon){
+      const r=await fetch(`https://api.pray.zone/v2/times/today.json?longitude=${lon}&latitude=${lat}`);
+      const j=await r.json(); const t=j.results?.datetime?.[0]?.times||{};
+      return normalize({İmsak:t.Fajr||t.Imsak||t.FAJR,Güneş:t.Sunrise||t.SUNRISE,Öğle:t.Dhuhr||t.DHUHR,İkindi:t.Asr||t.ASR,Akşam:t.Maghrib||t.MAGHRIB,Yatsı:t.Isha||t.ISHA});
+    }
+    // 2. kaynak olarak eklenen: IslamicAPI (çalışır alternatif)
+    async function apiIslamicAPI(lat,lon){
+      const url = `https://api.islamicapi.com/prayer?latitude=${lat}&longitude=${lon}&method=2`;
+      const r = await fetch(url);
+      const j = await r.json();
+      const t = (j && (j.data?.times||j.times)) || {};
+      return normalize({
+        İmsak: t.Imsak || t.Fajr || t.FAJR,
+        Güneş: t.Sunrise || t.SUNRISE,
+        Öğle:  t.Dhuhr || t.Zuhr || t.DHUHR,
+        İkindi:t.Asr || t.ASR,
+        Akşam: t.Maghrib || t.MAGHRIB,
+        Yatsı: t.Isha || t.ISHA
+      });
+    }
+    async function diyanetHTML(url){
+      if(!url) throw new Error('no-secondary');
+      const r=await fetch(`https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`);
+      if(!r.ok) throw new Error('diyanet-fail');
+      const h=await r.text();
+      const m=[...h.matchAll(/(\d{1,2}:\d{2})/g)].map(x=>x[1]); const uniq=[];
+      for(const s of m){ if(!uniq.includes(s)) uniq.push(s); if(uniq.length>=6) break; }
+      if(uniq.length<5) throw new Error('parse-fail');
+      const keys=["İmsak","Güneş","Öğle","İkindi","Akşam","Yatsı"]; const out={};
+      keys.forEach((k,i)=>out[k]=uniq[i]||uniq[uniq.length-1]); return normalize(out);
+    }
+
+    async function crossCheck(primary, city){
+      try{
+        const tasks=[];
+        // Diyanet sayfası varsa dener
+        if(city.diyanet) tasks.push(withTimeout(diyanetHTML(city.diyanet),2000).then(s=>({src:'diyanet',data:s})).catch(()=>({src:'diyanet',err:true})));
+        // IslamicAPI'yi mutlaka dener (ikinci kaynak)
+        tasks.push(withTimeout(apiIslamicAPI(city.lat,city.lon),2000).then(s=>({src:'islamicapi',data:s})).catch(()=>({src:'islamicapi',err:true})));
+        // İsterseniz üçüncü kıyas olarak Pray.Zone
+        tasks.push(withTimeout(apiPrayZone(city.lat,city.lon),2000).then(s=>({src:'prayzone',data:s})).catch(()=>({src:'prayzone',err:true})));
+
+        const results = await Promise.all(tasks);
+        let hadSecondary=false, anyMismatch=false, diffs=[];
+        for(const r of results){
+          if(r.err||!r.data) continue;
+          hadSecondary=true;
+          const d=diffKeys(primary,r.data);
+          if(d.length){ anyMismatch=true; diffs.push(`${r.src}: ${d.join(', ')}`); }
+        }
+        if(!hadSecondary){ lastCross={status:'fail',diff:[],ts:Date.now()}; }
+        else if(anyMismatch){ lastCross={status:'warn',diff:diffs,ts:Date.now()}; }
+        else { lastCross={status:'ok',diff:[],ts:Date.now()}; }
+      }catch{ lastCross={status:'fail',diff:[],ts:Date.now()}; }
+      renderCrossUI();
+    }
+
+    function renderCrossUI(){
+      if(crossHidden && lastCross.status==='warn'){ crossBox.style.display='none'; return; }
+      if(lastCross.status==='none'){ crossBox.style.display='none'; return; }
+      crossBox.style.display='flex';
+      crossDot.className='dot '+(lastCross.status==='ok'?'ok':lastCross.status==='warn'?'warn':'danger');
+      const txt=i18n[lang].cross;
+      crossText.textContent =
+        lastCross.status==='ok' ? txt.ok :
+        lastCross.status==='warn' ? `${txt.warn}: ${Array.isArray(lastCross.diff)?lastCross.diff.join(' | '):''}` :
+        txt.fail;
+    }
+
+    /* ========= Load & Format ========= */
+    function formatForView(src){
+      return {
+        İmsak: show(src.İmsak),
+        Güneş: show(src.Güneş),
+        Öğle:  show(src.Öğle),
+        İkindi:show(src.İkindi),
+        Akşam: show(src.Akşam),
+        Yatsı: show(src.Yatsı)
+      };
+    }
+
+    async function fetchAll(cityId, force=false){
+      const c = cities[cityId] || customCities[cityId]; if(!c) return;
+      cityName.textContent=c.name;
+
+      const cached = !force && readCache(cityId);
+      if(cached){
+        todays = formatForView(cached);
+        renderTimes(); nextCountdown(); verse(); renderDate(); qiblaShow();
+      }else{
+        timesDiv.innerHTML = `<div class="time-item"><div class="tname">⏳</div><div class="tval">Yükleniyor…</div></div>`;
+      }
+
+      let primary=null;
+      try{ primary=await apiAladhan(c.lat,c.lon); }
+      catch{
+        try{ primary=await withTimeout(apiPrayZone(c.lat,c.lon),2000); }
+        catch{
+          try{ primary=await withTimeout(diyanetHTML(c.diyanet),2000); }
+          catch{ primary=null; }
+        }
+      }
+      if(!primary){ timesDiv.innerHTML=`<div class="time-item"><div class="tname">⚠️</div><div class="tval">Veri alınamadı</div></div>`; return; }
+
+      crossCheck(primary,c);
+      saveCache(cityId,primary);
+      todays = formatForView(primary);
+      renderTimes(); nextCountdown(); verse(); renderDate(); qiblaShow();
+    }
+
+    /* ========= Settings → Wires ========= */
+    function setTheme(t){
+      document.body.className=t; theme=t; localStorage.setItem('theme',t);
+      themeToggle.textContent = (t==='light'?'🌞':t==='gruvbox'?'🌿':t==='vampire'?'🧛':'🌙');
+      const r=document.querySelector(`input[name="theme"][value="${t}"]`); if(r) r.checked=true;
+      renderTimes(); /* emojis theme-follow option */
+    }
+    function setTimeFormat(f){
+      timeFormat=f; localStorage.setItem('timeFormat',f);
+      // Re-apply formatting + recount
+      if(Object.keys(todays).length){
+        const raw = readCache(selectedCity);
+        if(raw){ todays=formatForView(raw); renderTimes(); nextCountdown(); }
+      }
+      // Mark radio
+      const r=document.querySelector(`input[name="tf"][value="${f}"]`); if(r) r.checked=true;
+    }
+    function applyI18n(){
+      // headings/buttons
+      const map=i18n[lang].ui;
+      document.documentElement.lang = lang;
+      elAll('[data-i18n]').forEach(node=>{
+        const key=node.getAttribute('data-i18n');
+        if(key==='next'){ node.textContent = i18n[lang].next; return; }
+        if(map[key]) node.textContent=map[key];
+      });
+      // placeholders
+      el('cc-name').placeholder = lang==='ar'?'اسم المدينة/المنطقة':(lang==='en'?'City/District name':'İl/İlçe adı');
+      el('cc-lat').placeholder  = 'Lat';
+      el('cc-lon').placeholder  = 'Lon';
+      el('citySearch').placeholder = lang==='ar'?'ابحث…':(lang==='en'?'Search…':'Ankara…');
+      // update dynamic bits
+      renderCrossUI();
+      renderDate();
+      renderTimes();
+    }
+    function setLang(l){
+      lang=l; localStorage.setItem('lang',l);
+      langSelect.value=l;
+      applyI18n();
+    }
+
+    function loadCityOptions(){
+      citySelect.innerHTML='';
+      Object.entries(cities).forEach(([id,c])=>{
+        const o=document.createElement('option'); o.value=id; o.textContent=c.name; citySelect.appendChild(o);
+      });
+      Object.entries(customCities).forEach(([id,c])=>{
+        const o=document.createElement('option'); o.value=id; o.textContent=c.name; citySelect.appendChild(o);
+      });
+      if(!cities[selectedCity] && !customCities[selectedCity]) selectedCity='sinop-gerze';
+      citySelect.value=selectedCity;
+    }
+
+    /* ========= Events ========= */
+    openSettings.addEventListener('click', ()=>{ settings.classList.add('active'); settings.setAttribute('aria-hidden','false'); renderCrossUI(); });
+    closeSettings.addEventListener('click', ()=>{ settings.classList.remove('active'); settings.setAttribute('aria-hidden','true'); });
+
+    themeToggle.addEventListener('click', ()=> setTheme(theme==='light'?'dark':'light'));
+
+    // theme radios
+    el('themeRadios').addEventListener('change',(e)=>{ if(e.target.name==='theme') setTheme(e.target.value); });
+
+    // time format radios
+    elAll('input[name="tf"]').forEach(r=>{
+      r.checked = (r.value===timeFormat);
+      r.addEventListener('change', ()=> setTimeFormat(r.value));
+    });
+
+    // language
+    langSelect.value=lang;
+    langSelect.addEventListener('change', ()=> setLang(langSelect.value));
+
+    // emoji follow
+    const emojiToggle=el('emojiFollowTheme');
+    emojiToggle.checked=!!emojiFollowTheme;
+    emojiToggle.addEventListener('change', ()=>{
+      emojiFollowTheme = emojiToggle.checked;
+      localStorage.setItem('emojiFollowTheme', JSON.stringify(emojiFollowTheme));
+      renderTimes();
+    });
+
+    // city change
+    citySelect.addEventListener('change', ()=>{
+      selectedCity=citySelect.value; localStorage.setItem('selectedCity',selectedCity);
+      fetchAll(selectedCity,true);
+    });
+
+    // city search filter
+    el('citySearch').addEventListener('input',(e)=>{
+      const term=e.target.value.toLowerCase();
+      [...citySelect.options].forEach(o=>{ o.hidden = term && !o.text.toLowerCase().includes(term); });
+    });
+
+    // find me
+    el('findMe').addEventListener('click', ()=>{
+      if(!navigator.geolocation){ alert(lang==='ar'?'متصفحك لا يدعم الموقع.':(lang==='en'?'Your browser does not support geolocation.':'Tarayıcınız konum özelliğini desteklemiyor.')); return; }
+      navigator.geolocation.getCurrentPosition(
+        pos=>{
+          const {latitude,longitude}=pos.coords;
+          fetch(`https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`)
+            .then(r=>r.json()).then(d=>{
+              const city=d.address.city||d.address.town||d.address.village;
+              if(!city) return;
+              const opt=[...citySelect.options].find(o=>o.text.toLowerCase().includes(city.toLowerCase()));
+              if(opt){ citySelect.value=opt.value; citySelect.dispatchEvent(new Event('change')); }
+              else{
+                el('cc-name').value=city;
+                el('cc-lat').value=latitude.toFixed(5);
+                el('cc-lon').value=longitude.toFixed(5);
+                alert(lang==='ar'?'المدينة غير موجودة؛ يمكنك حفظها كمدينة مخصصة.':(lang==='en'?'City is not in the list; you can save it as a custom city.':'Şehir listede yok; Özel Şehir olarak kaydedebilirsiniz.'));
+              }
+            });
+        }, ()=> alert(lang==='ar'?'تم رفض إذن الموقع.':(lang==='en'?'Location permission denied.':'Konum izni reddedildi.'))
+      );
+    });
+
+    // save custom city
+    el('saveCity').addEventListener('click', ()=>{
+      const name=el('cc-name').value.trim(), lat=el('cc-lat').value.trim(), lon=el('cc-lon').value.trim();
+      if(!name||!lat||!lon) return alert(lang==='ar'?'يرجى تعبئة كل الحقول.':(lang==='en'?'Please fill all fields.':'Lütfen tüm alanları doldurun.'));
+      if(isNaN(lat)||isNaN(lon)) return alert(lang==='ar'?'يجب أن تكون الإحداثيات أرقامًا.':(lang==='en'?'Lat/Lon must be numbers.':'Lat/Lon sayı olmalı.'));
+      const id=name.toLowerCase().replace(/\s+/g,'-');
+      customCities[id]={name,lat:+lat,lon:+lon,diyanet:""};
+      localStorage.setItem('customCities', JSON.stringify(customCities));
+      loadCityOptions(); citySelect.value=id; citySelect.dispatchEvent(new Event('change'));
+      el('cc-name').value=''; el('cc-lat').value=''; el('cc-lon').value='';
+    });
+
+    // qibla
+    el('calcQ').addEventListener('click', qiblaShow);
+
+    // cross ui
+    crossRetry.addEventListener('click', ()=> fetchAll(selectedCity,true));
+    crossHide.addEventListener('click', ()=>{ crossHidden=true; localStorage.setItem('crossHidden','true'); renderCrossUI(); });
+
+    /* ========= Theme Builder ========= */
+    function hexToRGBA(hex,a){ const v=hex.replace('#',''); const r=parseInt(v.substring(0,2),16), g=parseInt(v.substring(2,4),16), b=parseInt(v.substring(4,6),16); return `rgba(${r},${g},${b},${a})`; }
+    function mix(c1,c2,w){ const f=h=>[parseInt(h.substr(1,2),16),parseInt(h.substr(3,2),16),parseInt(h.substr(5,2),16)]; const A=f(c1),B=f(c2); const r=[0,1,2].map(i=>Math.round(A[i]*(1-w)+B[i]*w)); return `#${r.map(x=>x.toString(16).padStart(2,'0')).join('')}`; }
+    function applyCustomTheme(vars){
+      const css=`
+      body.custom{
+        --bg-primary:${vars.bg};
+        --bg-secondary:${vars.sec};
+        --bg-tertiary:${vars.sec};
+        --text-primary:${vars.text};
+        --text-secondary:${vars.text}CC;
+        --text-muted:${vars.text}99;
+        --accent:${vars.acc};
+        --accent-2:${vars.acc};
+        --accent-dim:${hexToRGBA(vars.acc,0.12)};
+        --border:${mix(vars.sec,'#000000',.3)};
+        --border-light:${mix(vars.sec,'#000000',.2)};
+        --shadow:0 8px 24px rgba(0,0,0,.35);
+      }`;
+      let s=document.getElementById('customThemeStyle');
+      if(!s){ s=document.createElement('style'); s.id='customThemeStyle'; document.head.appendChild(s); }
+      s.textContent=css;
+    }
+    function loadCustomTheme(){
+      const raw=localStorage.getItem('customTheme'); if(!raw) return null;
+      try{ const v=JSON.parse(raw); applyCustomTheme(v); el('customThemeRadioWrap').style.display='inline-block'; return v; }catch{return null}
+    }
+    el('saveCustomTheme').addEventListener('click', ()=>{
+      const v={ bg:el('ct-bg').value, sec:el('ct-sec').value, text:el('ct-text').value, acc:el('ct-accent').value };
+      localStorage.setItem('customTheme', JSON.stringify(v)); applyCustomTheme(v);
+      el('customThemeRadioWrap').style.display='inline-block';
+      setTheme('custom');
+    });
+
+    /* ========= Boot ========= */
+    function boot(){
+      loadCustomTheme();
+      setTheme(theme);
+      elAll('input[name="tf"]').forEach(r=>{ r.checked=(r.value===timeFormat); });
+      setLang(lang);
+      loadCityOptions();
+      fetchAll(selectedCity,false);
+    }
+
+    document.addEventListener('DOMContentLoaded', ()=>{
+      boot();
+      // mobile swipe open
+      let startX=0;
+      document.addEventListener('touchstart',e=>startX=e.touches[0].clientX,{passive:true});
+      document.addEventListener('touchend',e=>{ if(startX - e.changedTouches[0].clientX > 50) settings.classList.add('active'); },{passive:true});
+    });
+  </script>
+</body>
+</html>
