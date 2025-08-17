@@ -1,123 +1,95 @@
-
 <p align="center">
-  <img src="icon.png" width="100" alt="Vakitly Logo">
+  <img src="icon.png" width="120" alt="Vakitly Logo">
   <h1 align="center">Vakitly</h1>
-  <p align="center">Minimalist Namaz Vakitleri Web Uygulaması</p>
+  <p align="center">Minimalist Namaz Vakitleri Uygulaması</p>
+  
+  <p align="center">
+    <a href="https://github.com/SyewaN/Vakitly/stargazers">
+      <img src="https://img.shields.io/github/stars/SyewaN/Vakitly?style=for-the-badge&color=4CAF50" alt="GitHub stars">
+    </a>
+    <a href="https://github.com/SyewaN/Vakitly/issues">
+      <img src="https://img.shields.io/github/issues/SyewaN/Vakitly?style=for-the-badge&color=2196F3" alt="GitHub issues">
+    </a>
+    <a href="https://github.com/SyewaN/Vakitly/blob/main/LICENSE">
+      <img src="https://img.shields.io/github/license/SyewaN/Vakitly?style=for-the-badge&color=FF5722" alt="License">
+    </a>
+  </p>
 </p>
 
 ---
 
-### 🌙 Proje Hakkında
-Vakitly, basit, kişiselleştirilebilir, kullanıcı dostu arayüzü ve modern tasarımıyla namaz vakitlerini kolayca takip etmenizi sağlayan bir web uygulamasıdır. Tamamen açık kaynak kodlu olup, her türlü katkıya açıktır.
+## ✨ Özellikler
 
----
-
-### 📱 Ekran Görüntüleri
 <div align="center">
-  <img src="ss1.jpg" width="30%" alt="Ana Ekran">
-  <img src="ss2.jpg" width="30%" alt="Ayarlar Paneli">
-  <img src="ss3.jpg" width="30%" alt="Telefon">
+  <table>
+    <tr>
+      <td width="50%">
+        <h3>🎨 Tasarım</h3>
+        <ul>
+          <li>4 Modern Tema Seçeneği</li>
+          <li>Tamamen Responsif Arayüz</li>
+          <li>Kullanıcı Dostu Navigasyon</li>
+        </ul>
+      </td>
+      <td width="50%">
+        <h3>⏰ Vakitler</h3>
+        <ul>
+          <li>5 Vakit Gösterimi</li>
+          <li>Otomatik Konum Tespiti</li>
+          <li>Sonraki Vakit Geri Sayımı</li>
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <h3>🌍 Çoklu Dil</h3>
+        <ul>
+          <li>Türkçe</li>
+          <li>Arapça</li>
+          <li>İngilizce</li>
+          <li>Almanca</li>
+          <li>Fransızca</li>
+        </ul>
+      </td>
+      <td>
+        <h3>⚙️ Kişiselleştirme</h3>
+        <ul>
+          <li>Özel Şehir Ekleme</li>
+          <li>Kıble Yönü Göstergesi</li>
+          <li>Mini Takvim</li>
+        </ul>
+      </td>
+    </tr>
+  </table>
 </div>
 
 ---
 
-### ✨ Öne Çıkan Özellikler
-- **5 Vakit Paneli**: Güncel vakit bilgileriyle
-- **Mekanik Kıble Yönü Göstergesi**: Pusula ve açı bilgisi
-- **Kişiselleştirilebilir Arayüz**:
-  - 4 farklı tema (Koyu/Açık/Gruvbox/Purple)
-  - Özel tema oluşturma
-  - 12/24 saat formatı seçeneği
-- **Çoklu Dil Desteği**: Türkçe, Arapça, İngilizce, Almanca, Fransızca
-- **Şehir Yönetimi**:
-  - 30+ önceden tanımlı şehir
-  - Özel şehir ekleme (konum veya koordinatla)
-  - Kendi API kaynağınız ile ikincil doğrulama
-- **Dinamik İçerik**:
-  - Rastgele ayet gösterimi
-  - Mini takvim (Miladi/Hicri)
-  - Geri sayım özelliği
-- **Tamamen Responsif**: Mobil, tablet ve masaüstü uyumlu
+## 🚀 Hızlı Başlangıç
 
----
+### Online Kullanım
+```bash
+https://syewan.github.io/Vakitly/
 
-### ⚙️ Teknik Özellikler
-| Özellik | Detay |
-|---------|-------|
-| **Versiyon** | 2.0.0 |
-| **Lisans** | MIT License |
-| **Kod Dili** | HTML5, CSS3, Vanilla JavaScript |
-| **API Kaynakları** | Aladhan, IslamicAPI, Diyanet |
-| **Depolama** | LocalStorage (Tema ve ayarlar için) |
+Yerel Kurulum
+bash
 
----
-### 🌟 Kullanım
+git clone https://github.com/SyewaN/Vakitly.git
+cd Vakitly
+# index.html dosyasını tarayıcıda açın
 
-**Online Kullanım:**  
-Vakitly'yi herhangi bir kurulum yapmadan doğrudan github üzerinden kullanabilirsiniz:  
-👉 [https://syewan.github.io/Vakitly/](https://syewan.github.io/Vakitly/)
+📸 Ekran Görüntüleri
+<div align="center"> <img src="ss1.jpg" width="30%" alt="Ana Ekran"> <img src="ss2.jpg" width="30%" alt="Ayarlar"> <img src="ss3.jpg" width="30%" alt="Kıble"> </div>
+🤝 Katkıda Bulunma
+bash
 
-**Yerel Kurulum (İsteğe Bağlı):**  
-1. Repoyu klonlayın:
-   ```bash
-   git clone https://github.com/SyewaN/Vakitly.git
+1. Fork the Project
+2. Create your Feature Branch (git checkout -b feature/AmazingFeature)
+3. Commit your Changes (git commit -m 'Add some AmazingFeature')
+4. Push to the Branch (git push origin feature/AmazingFeature)
+5. Open a Pull Request
 
-    index.html dosyasını tarayıcıda açın
-    Not: Çevrimdışı çalışmaz, API bağlantısı gerektirir
+📜 Lisans
 
-💖 Destek & Katkı
-
-Destek Olun:
-⭐ Projeye star vererek destek sağlayabilirsiniz.
-🐛 Hata bildirimleri için Issue açabilirsiniz.
-
-Katkıda Bulunun:
-
-    Repoyu fork'layın
-
-    Yeni branch oluşturun (git checkout -b feature/yeni-özellik)
-
-    Değişikliklerinizi commit edin
-
-    Push yapın (git push origin feature/yeni-özellik)
-
-    GitHub üzerinden Pull Request açın
-
-Katkı Yönergeleri:
-
-    Kod stillerine uyum sağlayın
-
-    Anlamlı commit mesajları yazın
-
-    Büyük değişiklikler için önce Issue açarak tartışın
-
-**Planlanan Özellikler**:
-- [ ] Bildirim desteği
-- [ ] Offline çalışma özelliği
-
----
-
-### 📜 Lisans Bilgisi
-MIT Lisansı altında dağıtılmaktadır. İstediğiniz gibi kullanabilir ve geliştirebilirsiniz. Orijinal repo'ya atıf yapmak şartıyla:
-```markdown
-https://github.com/SyewaN/Vakitly
-```
-
-**Önemli Not**: "Vakitly" ismi ve ikonları orijinal geliştiriciye aittir. Ticari kullanımlar için lütfen iletişime geçiniz.
-
----
-
-### 💡 Bilinen Sorunlar & Geliştirme Notları
-- Bazı şehirlerde vakit farklılıkları olabilir (API kaynaklı)
-- iOS'ta tema geçişlerinde küçük gecikmeler
-- Varsayıolan olarak daha fazla şehir eklenmesi planlanıyor
-
----
-
-<div align="center">
-  <p>✨ Vakitly </p>
-  <p>Geliştirici: <a href="https://github.com/SyewaN">Syewan</a></p>
-</div>
-```
-
-İstediğiniz zaman içeriği güncelleyebilir veya genişletebilirsiniz. Özellikle "Planlanan Özellikler" kısmına yeni fikirlerinizi ekleyebilirsiniz.
+MIT Lisansı - Detaylar için LICENSE dosyasına bakınız.
+<div align="center"> <p>Made with ❤️ by <a href="https://github.com/SyewaN">Syewan</a></p> <p>🕌 Namazlarınızı vaktinde kılmanız dileğiyle</p> </div> ```
