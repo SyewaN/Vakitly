@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="icon.png" width="120" alt="Vakitly Logo">
+  <img src="icon.png" width="2000" alt="Vakitly Logo">
   <h1 align="center">Vakitly</h1>
   <p align="center">Minimalist Namaz Vakitleri Uygulaması</p>
   </p><p align="center">
