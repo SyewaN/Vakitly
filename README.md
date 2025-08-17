@@ -14,7 +14,7 @@
     <img src="https://img.shields.io/badge/License-MIT-2196F3?logo=opensourceinitiative&logoColor=white" alt="License">
   </p>
 </p>
-## 🌙 Proje Hakkında
+##🌙 Proje Hakkında
 Vakitly, kullanıcı dostu arayüzü ve modern tasarımıyla namaz vakitlerini kolayca takip etmenizi sağlayan bir web uygulamasıdır. Tamamen açık kaynak kodlu olup, her türlü katkıya açıktır.
 
 ✅ **Temel Özellikler:**
