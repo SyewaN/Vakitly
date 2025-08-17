@@ -51,24 +51,45 @@ Vakitly, basit, kişiselleştirilebilir, kullanıcı dostu arayüzü ve modern t
 | **Depolama** | LocalStorage (Tema ve ayarlar için) |
 
 ---
+### 🌟 Kullanım
 
-### 🚀 Kullanım
+**Online Kullanım:**  
+Vakitly'yi herhangi bir kurulum yapmadan doğrudan github üzerinden kullanabilirsiniz:  
+👉 [https://syewan.github.io/Vakitly/](https://syewan.github.io/Vakitly/)
+
+**Yerel Kurulum (İsteğe Bağlı):**  
 1. Repoyu klonlayın:
    ```bash
    git clone https://github.com/SyewaN/Vakitly.git
-   ```
-2. `index.html` dosyasını tarayıcıda açın
-3. İnternet bağlantısıyla kullanın (API çağrıları için)
 
----
+    index.html dosyasını tarayıcıda açın
+    Not: Çevrimdışı çalışmaz, API bağlantısı gerektirir
 
-### 🌱 Katkıda Bulunma
-Projeye katkıda bulunmak isterseniz:
-1. Fork oluşturun
-2. Yeni branch açın (`git checkout -b feature/özellik-adi`)
-3. Değişikliklerinizi commit edin
-4. Push yapın (`git push origin feature/özellik-adi`)
-5. Pull Request oluşturun
+💖 Destek & Katkı
+
+Destek Olun:
+⭐ Projeye star vererek destek sağlayabilirsiniz.
+🐛 Hata bildirimleri için Issue açabilirsiniz.
+
+Katkıda Bulunun:
+
+    Repoyu fork'layın
+
+    Yeni branch oluşturun (git checkout -b feature/yeni-özellik)
+
+    Değişikliklerinizi commit edin
+
+    Push yapın (git push origin feature/yeni-özellik)
+
+    GitHub üzerinden Pull Request açın
+
+Katkı Yönergeleri:
+
+    Kod stillerine uyum sağlayın
+
+    Anlamlı commit mesajları yazın
+
+    Büyük değişiklikler için önce Issue açarak tartışın
 
 **Planlanan Özellikler**:
 - [ ] Bildirim desteği
