@@ -33,8 +33,8 @@ Vakitly, kullanıcı dostu, minimalist, kişiselleştirilebilir arayüzü ve din
 
 <div align="center">
   <h3>Masaüstü Görünümü</h3>
-  <img src="screenshots/ss1.png" width="45%" alt="Masaüstü Ana Ekran">
-  <img src="screenshots/ss2.png" width="45%" alt="Masaüstü Ayarlar">
+  <img src="screenshots/ss1.png" width="60%" alt="Masaüstü Ana Ekran">
+  <img src="screenshots/ss2.png" width="60%" alt="Masaüstü Ayarlar">
   
   <h3>Mobil Görünümü</h3>
   <img src="screenshots/ss3.png" width="30%" alt="Mobil Görünüm">
@@ -61,10 +61,8 @@ Projeye katkıda bulunmak isterseniz:
 ---
 
 ### 📜 Lisans
-📜 Lisans Bilgisi
-
 [MIT Lisansı](https://github.com/SyewaN/Vakitly/blob/main/LICENSE) altında dağıtılmaktadır. İstediğiniz gibi kullanabilir ve geliştirebilirsiniz. Orijinal repo'ya atıf yapmak şartıyla.
 
 Önemli Not: "Vakitly" ismi ve ikonları orijinal geliştiriciye aittir. Ticari kullanımlar için lütfen iletişime geçiniz.
 
-<div align="center"> <p>✨ İnşallah işinize yarayan bir uygulama olur.</p> <p>Geliştirici: <a href="https://github.com/SyewaN">Syewan</a></p> </div> 
+<div align="center"> <p>✨ İnşallah işinize yarayan bir web uygulaması olur.</p> <p>Geliştirici: <a href="https://github.com/SyewaN">Syewan</a></p> </div> 
