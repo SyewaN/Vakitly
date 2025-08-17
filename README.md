@@ -2,15 +2,21 @@
   <img src="icon.png" width="120" alt="Vakitly Logo">
   <h1 align="center">Vakitly</h1>
   <p align="center">Minimalist Namaz Vakitleri Uygulaması</p>
-  
+  </p><p align="center">
+  <a href="https://syewan.github.io/Vakitly/" target="_blank">
+    <b>Buradan kullanabilirsiniz</b>
+  </a>
+</p>
   <p align="center">
     <a href="https://github.com/SyewaN/Vakitly/stargazers">
       <img src="https://img.shields.io/github/stars/SyewaN/Vakitly?style=for-the-badge&color=4CAF50" alt="GitHub stars">
     </a>
-    <a href="https://github.com/SyewaN/Vakitly/issues">
+    
+  <a href="https://github.com/SyewaN/Vakitly/issues">
       <img src="https://img.shields.io/github/issues/SyewaN/Vakitly?style=for-the-badge&color=2196F3" alt="GitHub issues">
     </a>
-    <a href="https://github.com/SyewaN/Vakitly/blob/main/LICENSE">
+  
+  <a href="https://github.com/SyewaN/Vakitly/blob/main/LICENSE">
       <img src="https://img.shields.io/github/license/SyewaN/Vakitly?style=for-the-badge&color=FF5722" alt="License">
     </a>
   </p>
