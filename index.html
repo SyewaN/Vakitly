@@ -162,7 +162,7 @@
       transition:color 0.5s ease;
     }
 
-    /* GitHub */
+    /* GitHub Link */
     .github-link {
       display: flex;
       align-items: center;
@@ -180,22 +180,37 @@
       width: 18px;
       height: 18px;
       margin-right: 0.5rem;
-      fill: currentColor;
+      fill: var(--text-secondary);
       transition:fill 0.5s ease;
     }
     .github-link span {
-      color: var(--accent);
+      color: var(--text-secondary);
       font-weight: 700;
-      border-bottom: 1px dashed var(--accent);
+      border-bottom: 1px dashed var(--text-secondary);
       transition:color 0.5s ease,border-color 0.5s ease;
     }
     .github-link:hover span {
-      color: var(--accent-2);
-      border-bottom-color: var(--accent-2);
+      color: var(--accent);
+      border-bottom-color: var(--accent);
     }
 
+    /* Color Picker */
+    .color-picker {
+      height: 40px;
+      cursor: pointer;
+    }
+    .color-picker::-webkit-color-swatch {
+      border-radius: 6px;
+      border: 1px solid var(--border);
+    }
+    .color-picker::-moz-color-swatch {
+      border-radius: 6px;
+      border: 1px solid var(--border);
+    }
+
+    /* Responsive */
     @media (max-width:420px){
-      .panel{max-width:100%;border-radius:0;padding:1rem;border-left:none;border-right:none}
+      .panel{max-width:calc(100% - 40px);border-radius:16px;padding:1rem}
       .settings{width:100%;right:-100%}
       .settings.active{right:0}
     }
@@ -312,13 +327,13 @@
       <h4 data-i18n="build_theme">Tema Oluştur</h4>
       <div class="mini" data-i18n="build_theme_desc" style="margin-bottom:.4rem">Renkleri seçin ve kaydedin (sadece bu cihaz için).</div>
       <label class="mini" data-i18n="bg">Arka Plan</label>
-      <input type="color" id="ct-bg" class="input" value="#121218">
+      <input type="color" id="ct-bg" class="input color-picker" value="#121218">
       <label class="mini" data-i18n="card_bg">Kart Arka Plan</label>
-      <input type="color" id="ct-sec" class="input" value="#191a24">
+      <input type="color" id="ct-sec" class="input color-picker" value="#191a24">
       <label class="mini" data-i18n="text">Metin</label>
-      <input type="color" id="ct-text" class="input" value="#e6e6ef">
+      <input type="color" id="ct-text" class="input color-picker" value="#e6e6ef">
       <label class="mini" data-i18n="accent">Vurgu</label>
-      <input type="color" id="ct-accent" class="input" value="#10b981">
+      <input type="color" id="ct-accent" class="input color-picker" value="#10b981">
       <button id="saveCustomTheme" class="sbtn" data-i18n="save_theme">Özel Temayı Kaydet</button>
     </div>
 
@@ -405,7 +420,7 @@
         <svg viewBox="0 0 24 24" aria-hidden="true">
           <path fill="currentColor" d="M12 .5C5.73.5.99 5.24.99 11.51c0 4.85 3.15 8.96 7.51 10.41.55.1.75-.24.75-.53 0-.26-.01-1.12-.02-2.03-3.06.66-3.71-1.3-3.71-1.3-.5-1.27-1.22-1.6-1.22-1.6-.99-.67.08-.66.08-.66 1.1.08 1.68 1.13 1.68 1.13.98 1.67 2.58 1.19 3.21.91.1-.71.38-1.19.69-1.46-2.44-.28-5.01-1.22-5.01-5.44 0-1.2.43-2.18 1.13-2.95-.11-.28-.49-1.41.11-2.94 0 0 .92-.29 3.02 1.12.87-.24 1.8-.37 2.75-.37.95 0 1.88.13 2.75.37 2.1-1.41 3.02-1.12 3.02-1.12.6 1.53.22 2.66.11 2.94.7.77 1.13 1.75 1.13 2.95 0 4.23-2.58 5.16-5.03 5.44.39.33.73.98.73 1.98 0 1.43-.01 2.58-.01 2.94 0 .29.2.64.76.53 4.35-1.45 7.5-5.55 7.5-10.41C23.01 5.24 18.27.5 12 .5Z"/>
         </svg>
-        <span>Kaynak koda buradan ulaşabilirsiniz</span>
+        <span>Github</span>
       </a>
     </div>
   </aside>
@@ -544,7 +559,7 @@
           bg:"Arrière-plan", card_bg:"Fond de carte", text:"Texte", accent:"Accent", save_theme:"Enregistrer le Thème Perso",
           custom_city:"Ville Personnalisée", save:"Enregistrer",
           qibla:"Direction de la Qibla", qibla_desc:"Angle de la qibla pour la ville choisie :", calc_q:"Calculer la Qibla",
-          secondary_status:"État de la Source Secondaire", retry:"Revérifier", hide_warn:"Masquer l’avertissement",
+          secondary_status:"État de la Source Secondaire", retry:"Revérifier", hide_warn:"Masquer l'avertissement",
           city_search_title:"Rechercher / Choisir une Ville", find_me:"Me Localiser", city_search_note:"Vous pouvez aussi choisir depuis la liste déroulante de l'écran principal.",
           sources:"Sources", panel_custom:"Personnalisation du panneau", verse_show:"Afficher le verset",
           cal_show:"Afficher le mini calendrier", cal_hijri:"Afficher la date hijri"
@@ -1153,6 +1168,9 @@ function verse(){
     
 
 function boot(){
+  // Apply theme immediately to prevent flash
+  document.body.className = localStorage.getItem('theme') || prefTheme();
+  
   loadCustomTheme();
   setTheme(theme);
   elAll('input[name="tf"]').forEach(r=>{ r.checked=(r.value===timeFormat); });
@@ -1176,9 +1194,34 @@ function boot(){
     document.addEventListener('DOMContentLoaded', ()=>{
       boot();
 
-      let startX=0;
-      document.addEventListener('touchstart',e=>startX=e.touches[0].clientX,{passive:true});
-      document.addEventListener('touchend',e=>{ if(startX - e.changedTouches[0].clientX > 50) settings.classList.add('active'); },{passive:true});
+      let startX=0, isSwiping=false;
+      document.addEventListener('touchstart',e=>{
+        startX=e.touches[0].clientX;
+        isSwiping=false;
+      },{passive:true});
+      
+      document.addEventListener('touchmove',e=>{
+        if(Math.abs(e.touches[0].clientX - startX) > 10) {
+          isSwiping=true;
+        }
+      },{passive:true});
+
+      document.addEventListener('touchend',e=>{
+        if(!isSwiping) return;
+        
+        const diffX = e.changedTouches[0].clientX - startX;
+        
+        // Swipe right to open settings
+        if(diffX > 50 && !settings.classList.contains('active')) {
+          settings.classList.add('active');
+          settings.setAttribute('aria-hidden','false');
+        }
+        // Swipe left to close settings
+        else if(diffX < -50 && settings.classList.contains('active')) {
+          settings.classList.remove('active');
+          settings.setAttribute('aria-hidden','true');
+        }
+      },{passive:true});
     });
   </script>
 </body>
