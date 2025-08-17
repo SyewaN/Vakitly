@@ -33,11 +33,11 @@ Vakitly, kullanıcı dostu, minimalist, kişiselleştirilebilir arayüzü ve din
 
 <div align="center">
   <h3>Masaüstü Görünümü</h3>
-  <img src="screenshots/ss1.jpg" width="45%" alt="Masaüstü Ana Ekran">
-  <img src="screenshots/ss2.jpg" width="45%" alt="Masaüstü Ayarlar">
+  <img src="screenshots/ss1.png" width="45%" alt="Masaüstü Ana Ekran">
+  <img src="screenshots/ss2.png" width="45%" alt="Masaüstü Ayarlar">
   
   <h3>Mobil Görünümü</h3>
-  <img src="screenshots/ss3" width="30%" alt="Mobil Görünüm">
+  <img src="screenshots/ss3.png" width="30%" alt="Mobil Görünüm">
 </div>
 
 ---
