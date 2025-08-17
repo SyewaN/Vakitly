@@ -68,7 +68,6 @@
 ## 🚀 Hızlı Başlangıç
 
 ### Online Kullanım
-```bash
 https://syewan.github.io/Vakitly/
 
 Yerel Kurulum
