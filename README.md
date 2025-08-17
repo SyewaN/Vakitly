@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="icon.png" width="120" alt="Vakitly Logo">
+  <img src="icon.png" width="150" alt="Vakitly Logo">
   <h1 align="center">Vakitly</h1>
   <p align="center">Minimalist Namaz Vakitleri Uygulaması</p>
   
@@ -29,7 +29,6 @@
 
 ## 🚀 Hızlı Kullanım
 
-```bash
 # Online Kullanım:
 https://syewan.github.io/Vakitly/
 
