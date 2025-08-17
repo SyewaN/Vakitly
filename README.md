@@ -2,13 +2,13 @@
 <p align="center">
   <img src="icon.png" width="100" alt="Vakitly Logo">
   <h1 align="center">Vakitly</h1>
-  <p align="center">Minimalist ve Modern Namaz Vakitleri Uygulaması</p>
+  <p align="center">Minimalist Namaz Vakitleri Web Uygulaması</p>
 </p>
 
 ---
 
 ### 🌙 Proje Hakkında
-Vakitly, kullanıcı dostu arayüzü ve modern tasarımıyla namaz vakitlerini kolayca takip etmenizi sağlayan bir web uygulamasıdır. Tamamen açık kaynak kodlu olup, her türlü katkıya açıktır.
+Vakitly, basit, kişiselleştirilebilir, kullanıcı dostu arayüzü ve modern tasarımıyla namaz vakitlerini kolayca takip etmenizi sağlayan bir web uygulamasıdır. Tamamen açık kaynak kodlu olup, her türlü katkıya açıktır.
 
 ---
 
@@ -16,24 +16,25 @@ Vakitly, kullanıcı dostu arayüzü ve modern tasarımıyla namaz vakitlerini k
 <div align="center">
   <img src="ss1.jpg" width="30%" alt="Ana Ekran">
   <img src="ss2.jpg" width="30%" alt="Ayarlar Paneli">
-  <img src="ss3.jpg" width="30%" alt="Kıble Yönü">
+  <img src="ss3.jpg" width="30%" alt="Telefon">
 </div>
 
 ---
 
 ### ✨ Öne Çıkan Özellikler
-- **5 Vakit Namaz Takvimi**: Güncel vakit bilgileriyle
-- **Kıble Yönü Göstergesi**: Pusula ve açı bilgisi
+- **5 Vakit Paneli**: Güncel vakit bilgileriyle
+- **Mekanik Kıble Yönü Göstergesi**: Pusula ve açı bilgisi
 - **Kişiselleştirilebilir Arayüz**:
-  - 4 farklı tema (Koyu/Açık/Gruvbox/Vampir)
+  - 4 farklı tema (Koyu/Açık/Gruvbox/Purple)
   - Özel tema oluşturma
   - 12/24 saat formatı seçeneği
 - **Çoklu Dil Desteği**: Türkçe, Arapça, İngilizce, Almanca, Fransızca
 - **Şehir Yönetimi**:
   - 30+ önceden tanımlı şehir
   - Özel şehir ekleme (konum veya koordinatla)
+  - Kendi API kaynağınız ile ikincil doğrulama
 - **Dinamik İçerik**:
-  - Günlük rastgele ayet gösterimi
+  - Rastgele ayet gösterimi
   - Mini takvim (Miladi/Hicri)
   - Geri sayım özelliği
 - **Tamamen Responsif**: Mobil, tablet ve masaüstü uyumlu
@@ -45,14 +46,13 @@ Vakitly, kullanıcı dostu arayüzü ve modern tasarımıyla namaz vakitlerini k
 |---------|-------|
 | **Versiyon** | 2.0.0 |
 | **Lisans** | MIT License |
-| **Teknoloji** | HTML5, CSS3, Vanilla JavaScript |
+| **Kod Dili** | HTML5, CSS3, Vanilla JavaScript |
 | **API Kaynakları** | Aladhan, IslamicAPI, Diyanet |
-| **Tarayıcı Desteği** | Chrome, Firefox, Safari, Edge |
 | **Depolama** | LocalStorage (Tema ve ayarlar için) |
 
 ---
 
-### 🚀 Kurulum
+### 🚀 Kullanım
 1. Repoyu klonlayın:
    ```bash
    git clone https://github.com/SyewaN/Vakitly.git
@@ -71,8 +71,6 @@ Projeye katkıda bulunmak isterseniz:
 5. Pull Request oluşturun
 
 **Planlanan Özellikler**:
-- [ ] Hatim takip modülü
-- [ ] Dua koleksiyonu
 - [ ] Bildirim desteği
 - [ ] Offline çalışma özelliği
 
@@ -91,25 +89,14 @@ https://github.com/SyewaN/Vakitly
 ### 💡 Bilinen Sorunlar & Geliştirme Notları
 - Bazı şehirlerde vakit farklılıkları olabilir (API kaynaklı)
 - iOS'ta tema geçişlerinde küçük gecikmeler
-- Daha fazla şehir eklenmesi planlanıyor
+- Varsayıolan olarak daha fazla şehir eklenmesi planlanıyor
 
 ---
 
 <div align="center">
-  <p>✨ İbadetlerinizi kolaylaştıran bir uygulama</p>
+  <p>✨ Vakitly </p>
   <p>Geliştirici: <a href="https://github.com/SyewaN">Syewan</a></p>
 </div>
 ```
-
-Bu README.md dosyasında:
-
-1. **Daha profesyonel bir sunum** yapıldı
-2. **Özellikler detaylandırıldı**
-3. **Teknik bilgiler tablo formatında** sunuldu
-4. **Katkı süreci** net bir şekilde açıklandı
-5. **Planlanan özellikler** listesi eklendi
-6. **Bilinen sorunlar** belirtildi
-7. **Görsel düzen** iyileştirildi
-8. **Markdown formatı** en iyi şekilde kullanıldı
 
 İstediğiniz zaman içeriği güncelleyebilir veya genişletebilirsiniz. Özellikle "Planlanan Özellikler" kısmına yeni fikirlerinizi ekleyebilirsiniz.
