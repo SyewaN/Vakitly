@@ -1,6 +1,4 @@
-İşte Türkçe README.md dosyası için güncellenmiş ve geliştirilmiş bir versiyon:
 
-```markdown
 <p align="center">
   <img src="icon.png" width="100" alt="Vakitly Logo">
   <h1 align="center">Vakitly</h1>
